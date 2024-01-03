@@ -25,7 +25,7 @@ def process_images_in_folder(input_folder, output_folder):
         photo_editor = PhotoEditor(image_handler)
 
         # Python function to add padding and frames
-        new_image = photo_editor.add_padding_and_border(output_path=output_image_path)
+        new_image = photo_editor.add_padding_and_border()
 
         new_image.save(output_image_path)
         image_handler.close_image()
