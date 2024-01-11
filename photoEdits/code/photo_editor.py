@@ -22,3 +22,37 @@ class PhotoEditor:
 
         # Return the resulting image
         return new_image
+    
+    @staticmethod
+    def stack_images_vertically(image_paths):
+        try:
+            # Open the input images
+            images = [Image.open(path) for path in image_paths]
+
+            # Find the lowest width among the images
+            min_width = min(image.width for image in images)
+
+            # Calculate the height of the stacked image based on the aspect ratio
+            total_height = sum(image.height * (min_width / image.width) for image in images)
+
+            # Get the mode (color mode) from the first input image
+            image_mode = images[0].mode
+
+            # Create a new blank image with the desired dimensions (min_widthxtotal_height)
+            stacked_image = Image.new(image_mode, (min_width, int(total_height)))
+
+            # Paste the images on top of each other, resizing as needed
+            y_offset = 0
+            for image in images:
+                # Calculate the new height to maintain aspect ratio
+                new_height = int(image.height * (min_width / image.width))
+                resized_image = image.resize((min_width, new_height))
+                stacked_image.paste(resized_image, (0, y_offset))
+                y_offset += new_height
+            
+            # Return the stacked image
+            return stacked_image
+
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            return None
