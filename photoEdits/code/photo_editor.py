@@ -56,3 +56,34 @@ class PhotoEditor:
         except Exception as e:
             print(f"Error: {str(e)}")
             return None
+
+    @staticmethod
+    def stack_images_horizontally(image_paths):
+        try:
+            # Open the input images
+            images = [Image.open(path) for path in image_paths]
+
+            # Find the total width of the stacked image
+            total_width = sum(image.width for image in images)
+
+            # Get the mode (color mode) from the first input image
+            image_mode = images[0].mode
+
+            # Calculate the height of the stacked image based on the tallest image
+            max_height = max(image.height for image in images)
+
+            # Create a new blank image with the desired dimensions and mode
+            stacked_image = Image.new(image_mode, (total_width, max_height))
+
+            # Paste the images side by side
+            x_offset = 0
+            for image in images:
+                stacked_image.paste(image, (x_offset, 0))
+                x_offset += image.width
+
+            # Return the stacked image
+            return stacked_image
+
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            return None

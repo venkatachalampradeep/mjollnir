@@ -31,21 +31,21 @@ def process_images_in_folder(src_folder, tgt_folder):
             edited_image.save(output_image_path)  # Save the edited image
         image_handler.close_image()
 
-def stack_images_in_folder(src_folder, tgt_folder):
+def stack_images_in_folder(src_folder, tgt_folder, stack_dir_vert):
     files = os.listdir(src_folder)
     image_files = [file for file in files if file.lower().endswith((".jpg", ".jpeg"))]
 
-    if len(image_files) < 3:
-        print("Insufficient images to stack. At least 3 images are required.")
-        return
     image_files.sort()
 
     # Take the first three images for stacking
-    input_paths = [os.path.join(src_folder, image_files[i]) for i in range(3)]
+    input_paths = [os.path.join(src_folder, image_files[i]) for i in range(len(image_files))]
     output_path = os.path.join(tgt_folder, "stacked_image.jpg")
 
-    stacked_image = PhotoEditor.stack_images_vertically(input_paths)
-
+    if stack_dir_vert:
+        stacked_image = PhotoEditor.stack_images_vertically(input_paths)
+    else:
+        stacked_image = PhotoEditor.stack_images_horizontally(input_paths)
+    
     if stacked_image:
         stacked_image.save(output_path)  # Save the stacked image
 
@@ -53,11 +53,13 @@ if __name__ == "__main__":
     src_folder = "../src/"
     tgt_folder = "../tgt/"
     parser = argparse.ArgumentParser(description="Image processing options")
-    parser.add_argument("--operation", choices=["add_padding_and_border", "stack_images"], required=True, help="Choose the image processing operation")
+    parser.add_argument("--operation", choices=["add_padding_and_border", "stack_images_horz", "stack_images_vert"], required=True, help="Choose the image processing operation")
 
     args = parser.parse_args()
 
     if args.operation == "add_padding_and_border":
         process_images_in_folder(src_folder, tgt_folder)
-    elif args.operation == "stack_images":
-        stack_images_in_folder(src_folder, tgt_folder)
+    elif args.operation == "stack_images_vert":
+        stack_images_in_folder(src_folder, tgt_folder, stack_dir_vert=True)
+    elif args.operation == "stack_images_horz":
+        stack_images_in_folder(src_folder, tgt_folder, stack_dir_vert=False)
