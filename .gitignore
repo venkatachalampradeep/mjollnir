@@ -1,2 +1,21 @@
-photoEdits/code/__pycache__/image_handler.cpython-311.pyc
-photoEdits/code/__pycache__/photo_editor.cpython-311.pyc
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Output directory
+tgt/
+archive/
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
