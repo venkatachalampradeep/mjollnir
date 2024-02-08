@@ -10,7 +10,7 @@ def main():
 
     args = parser.parse_args()
 
-    if args.operation == "add_padding_and_border":
+    if args.operation == "add_padding_and_borde":
         utils.process_images_in_folder(args.src_folder, args.tgt_folder)
     elif args.operation == "stack_images_vert":
         utils.stack_images_in_folder(args.src_folder, args.tgt_folder, True)
