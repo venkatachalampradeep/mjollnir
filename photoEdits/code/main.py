@@ -3,7 +3,7 @@ import utils  # Import the utilities from utils.py
 
 def main():
     parser = argparse.ArgumentParser(description="Image processing options")
-    parser.add_argument("--operation", choices=["add_padding_and_border", "stack_images_horz", "stack_images_vert", "clean_folders", "archive_and_clean"], required=True, help="Choose the image processing operation")
+    parser.add_argument("--operation", choices=["add_padding_and_border", "stack_images_horz", "stack_images_vert", "clean_folders", "archive_and_clean"], required=True, help="Choose the operation")
     parser.add_argument("--src_folder", required=False, default="../src/", help="Source folder path")
     parser.add_argument("--tgt_folder", required=False, default="../tgt/", help="Target folder path")
     parser.add_argument("--archive_folder", required=False, default="../archive/", help="Archive folder path")
